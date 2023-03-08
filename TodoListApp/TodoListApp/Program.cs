@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using TodoListApp.Constants;
 using TodoListApp.Extensions;
@@ -7,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.ConfigureCors();
-builder.Services.AddMediatR(typeof(StartupBase));//to automatically read from file
-builder.Services.AddAutoMapper(typeof(StartupBase));
+builder.Services.AddMediatR(typeof(Program));//to automatically read from file
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

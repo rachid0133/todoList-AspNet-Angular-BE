@@ -40,17 +40,13 @@ namespace TodoListApp.Controllers
             if (success) return Ok();
             return BadRequest();
         }
- /*
-        [HttpPost("{id}/complete")]
-        public IActionResult CompletedTodo(int id)
-        {
-            var todo = AllTodos.SingleOrDefault(t => t.id == id);
-            if (todo != null)
-            {
-                todo.completed = true;
-            }
 
-            return Ok(todo);
-        }*/
+        [HttpPost("{id}/complete")]
+        public async Task<IActionResult> CompletedTodo([FromRoute] CompleteTodoProcess.Request request, CancellationToken cancellationToken)
+        {
+            var success = await _mediator.Send(request, cancellationToken);
+            if (success) return Ok();
+            return BadRequest();
+        }
     }
 }

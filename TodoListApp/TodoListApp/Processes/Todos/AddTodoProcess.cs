@@ -33,17 +33,6 @@ namespace TodoListApp.Processes.Todos
                 return true;
             }
         }
-        //Validator
-
-
-        //Mapper
-        public class Mapper : Profile
-        {
-            public Mapper()
-            {
-                CreateMap<TodoEntity, Response>();
-            }
-        }
 
 
     }
