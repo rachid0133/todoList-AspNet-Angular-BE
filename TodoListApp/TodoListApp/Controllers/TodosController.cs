@@ -33,15 +33,14 @@ namespace TodoListApp.Controllers
             return Ok(response);
         }
 
-       /* [HttpPost]
-        public IActionResult AddTodo(Todo todo)
+       [HttpPost]
+        public async Task<IActionResult> AddTodo([FromBody] AddTodoProcess.Request request, CancellationToken cancellationToken)
         {
-            var maxId = AllTodos.Max(t => t.id);
-            todo.id = maxId+1;
-            AllTodos.Add(todo);
-            return Ok(todo);
+            var success = await _mediator.Send(request, cancellationToken);
+            if (success) return Ok();
+            return BadRequest();
         }
-
+ /*
         [HttpPost("{id}/complete")]
         public IActionResult CompletedTodo(int id)
         {
