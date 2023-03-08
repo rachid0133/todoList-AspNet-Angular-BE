@@ -9,10 +9,11 @@ namespace TodoListApp.Controllers
     {
         private readonly List<Todo> AllTodos = new List<Todo>
         {
-            new Todo {text = "text11"},
-            new Todo {text = "text22"},
-            new Todo {text = "text33"},
-            new Todo {text = "text44"}
+            new Todo {id=1, text = "text11"},
+            new Todo {id=2,text = "text22"},
+            new Todo {id=3,text = "text33"},
+            new Todo {id=4,text = "text44"},
+            new Todo {id=5,text = "text55"}
         };
 
         [HttpGet]
@@ -20,6 +21,24 @@ namespace TodoListApp.Controllers
         {
             var nonCompletedTodos = AllTodos.Where(t => !t.completed);
             return Ok(nonCompletedTodos);
+        }
+
+        [HttpPost]
+        public IActionResult AddTodo(Todo todo)
+        {
+            AllTodos.Add(todo);
+            return Ok(todo);
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult CompletedTodo(int id)
+        {
+            var todo = AllTodos.SingleOrDefault(t => t.id == id);
+            if (todo != null)
+            {
+                todo.completed = true;
+            }
+            return Ok(todo);
         }
     }
 }
