@@ -7,7 +7,7 @@ namespace TodoListApp.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
-        private readonly List<Todo> AllTodos = new List<Todo>
+        private static List<Todo> AllTodos = new List<Todo>
         {
             new Todo {id=1, text = "text11"},
             new Todo {id=2,text = "text22"},
@@ -26,11 +26,13 @@ namespace TodoListApp.Controllers
         [HttpPost]
         public IActionResult AddTodo(Todo todo)
         {
+            var maxId = AllTodos.Max(t => t.id);
+            todo.id = maxId+1;
             AllTodos.Add(todo);
             return Ok(todo);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{id}/complete")]
         public IActionResult CompletedTodo(int id)
         {
             var todo = AllTodos.SingleOrDefault(t => t.id == id);
@@ -38,6 +40,7 @@ namespace TodoListApp.Controllers
             {
                 todo.completed = true;
             }
+
             return Ok(todo);
         }
     }
