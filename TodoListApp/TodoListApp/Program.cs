@@ -1,7 +1,11 @@
+using TodoListApp.Constants;
+using TodoListApp.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.ConfigureCors();
 
 var app = builder.Build();
 
@@ -21,6 +25,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(CorsConstants.CorsPolicyName);
 
 app.MapRazorPages();
 
