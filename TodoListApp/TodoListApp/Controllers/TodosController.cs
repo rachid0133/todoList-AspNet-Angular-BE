@@ -26,14 +26,22 @@ namespace TodoListApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTodos([FromQuery] GetUncompletedTodosProcess.Request request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUncompletedTodos([FromQuery] GetUncompletedTodosProcess.Request request, CancellationToken cancellationToken)
         {
            // var nonCompletedTodos = AllTodos.Where(t => !t.completed);
            var response  = await _mediator.Send(request, cancellationToken);
             return Ok(response);
         }
 
-       [HttpPost]
+        [HttpGet("completed")]
+        public async Task<IActionResult> GetCompletedTodos([FromQuery] GetCompletedTodosProcess.Request request, CancellationToken cancellationToken)
+        {
+            // var nonCompletedTodos = AllTodos.Where(t => !t.completed);
+            var response = await _mediator.Send(request, cancellationToken);
+            return Ok(response);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddTodo([FromBody] AddTodoProcess.Request request, CancellationToken cancellationToken)
         {
             var success = await _mediator.Send(request, cancellationToken);
