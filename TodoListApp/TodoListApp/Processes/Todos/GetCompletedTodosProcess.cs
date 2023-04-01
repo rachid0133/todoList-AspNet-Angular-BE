@@ -13,7 +13,9 @@ namespace TodoListApp.Processes.Todos
         //Response
         public class Response
         {
+            public int id { get; set; }
             public string text { get; set; }
+            public bool completed { get; set; }
         }
 
 
